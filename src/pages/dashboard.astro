@@ -1,0 +1,81 @@
+---
+// File: src/pages/dashboard.astro
+import { createClient } from '@supabase/supabase-js'
+import Layout from '../layouts/Layout.astro'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+
+// Initialize Supabase client
+const supabase = createClient(
+  import.meta.env.SUPABASE_URL,
+  import.meta.env.SUPABASE_ANON_KEY
+)
+
+// Check if user is authenticated
+const { data: { session } } = await supabase.auth.getSession()
+
+// Redirect if not authenticated
+if (!session) {
+  return Astro.redirect('/login')
+}
+
+// Get user data
+const user = session.user
+---
+
+<Layout title="Dashboard">
+  <div class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+    <Card className="w-full max-w-md">
+      <CardHeader>
+        <div class="flex items-center space-x-4">
+          <Avatar>
+            <AvatarImage src={user.user_metadata?.avatar_url} alt={user.user_metadata?.full_name} />
+            <AvatarFallback>{user.user_metadata?.full_name?.charAt(0) || 'U'}</AvatarFallback>
+          </Avatar>
+          <div>
+            <CardTitle>{user.user_metadata?.full_name || 'Welcome'}</CardTitle>
+            <CardDescription>{user.email}</CardDescription>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-sm font-medium">Account Details</h3>
+            <p class="text-sm">User ID: {user.id}</p>
+            <p class="text-sm">Role: {user.role}</p>
+            <p class="text-sm">Email Confirmed At: {user.email_confirmed_at ? new Date(user.email_confirmed_at).toLocaleString() : 'Not confirmed'}</p>
+            <p class="text-sm">Created on: {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium">Additional Information</h3>
+            <p class="text-sm">{user.user_metadata?.bio || 'No additional information provided.'}</p>
+          </div>
+          <Button id="signOutButton" variant="outline" className="w-full">
+            Sign Out
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+</Layout>
+
+<script>
+  import { createClient } from '@supabase/supabase-js'
+
+  const supabase = createClient(
+    import.meta.env.SUPABASE_URL,
+    import.meta.env.SUPABASE_ANON_KEY
+  )
+
+  const signOutButton = document.getElementById('signOutButton')
+  if (signOutButton) {
+    signOutButton.addEventListener('click', async () => {
+      const { error } = await supabase.auth.signOut()
+      if (!error) {
+        window.location.href = '/login'
+      }
+    })
+  }
+</script>

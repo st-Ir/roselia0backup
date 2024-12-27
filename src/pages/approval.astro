@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Page from '../components/analytic';
+import "@/styles/globals.css";
+---
+
+<Layout page="Login">
+  <main class="w-full h-full">
+    <Page client:load />
+  </main>
+</Layout>

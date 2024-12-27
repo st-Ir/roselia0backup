@@ -1,0 +1,211 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap");
+
+:global(:root) {
+  --text: hsl(0, 0%, 99%);
+  --textDim: hsl(0, 0%, 60%);
+  --background: hsl(0, 0%, 7%);
+  --primary: hsl(253, 96%, 56%);
+  --primaryBg: hsla(253, 96%, 56%, 0.2);
+  --primaryHi: hsla(155, 100%, 75%, 0.25);
+  --primaryFg: hsl(246, 100%, 85%);
+  --secondary: hsl(156, 51%, 14%);
+  --secondaryFg: hsl(249, 51%, 75%);
+  --secondaryBg: hsl(250, 51%, 90%);
+  --neutral: hsla(0, 0%, 30%, 0.1);
+  --fontFamily: "Manrope", sans-serif;
+}
+
+:global(*) {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:global(html),
+:global(body) {
+  width: 100%;
+  height: 100%;
+  font-family: var(--fontFamily);
+  background-color: var(--background);
+  color: var(--text);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:global(a) {
+  text-decoration: none;
+}
+
+:global(body) {
+  font-size: 1rem;
+  background-color: #050505;
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23545454' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.magicpattern {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: repeat;
+}
+
+@keyframes animateButton {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.button {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  background-color: var(--primary);
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
+  position: absolute;
+  transform: translate(
+    calc(var(--random-x, 0.5) * 100vw),
+    calc(var(--random-y, 0.5) * 100vh)
+  );
+  transition: transform 0.5s ease-in-out;
+}
+
+.button:hover {
+  background-color: var(--primaryFg);
+  color: var(--primary);
+}
+
+.grid {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.gridSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primaryHi);
+  z-index: -1;
+  backdrop-filter: blur(10px);
+}
+
+.text {
+  font-size: 2rem;
+  text-align: center;
+  color: var(--primaryFg);
+  margin-bottom: 2rem;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+}
+
+.btn1 {
+  --random-x: 0.05;
+  --random-y: -0.4;
+}
+
+.btn2 {
+  --random-x: -0.2;
+  --random-y: 0.13;
+}
+
+.btn3 {
+  --random-x: 0.17;
+  --random-y: 0.2;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .text {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .logo {
+    width: 75px;
+  }
+
+  .button {
+    transform: translate(
+      calc(var(--random-x, 0.5) * 90vw),
+      calc(var(--random-y, 0.5) * 90vh)
+    );
+  }
+}
+
+@media (max-width: 480px) {
+  .text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .logo {
+    width: 50px;
+  }
+
+  .btn1,
+  .btn2,
+  .btn3 {
+    right: 38vw;
+  }
+
+  .btn1 {
+    --random-x: 0;
+  }
+
+  .btn2 {
+    --random-x: 0;
+  }
+
+  .btn3 {
+    --random-x: 0;
+  }
+
+  .button {
+    width: 100px;
+    font-size: xx-small;
+    transform: translate(
+      calc(var(--random-x, 0.5) * 85vw),
+      calc(var(--random-y, 0.5) * 85vh)
+    );
+  }
+}

@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets'
+import logo from "../assets/icon.png"
+import EnvScript from '@/components/env'
+import "@/styles/globals.css"
+
+const title = "Roselia"
+const { page } = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | {page}</title>
+    <link rel="icon" type="image/png" href={logo.src} sizes="32x32" />
+    <script>
+      // Initialize window.ENV to prevent undefined errors
+      window.ENV = window.ENV || {};
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <EnvScript client:load />
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+    overflow-y: auto;
+  }
+</style>
+
+<script>
+  // Tambahkan ini di file layout utama atau komponen yang selalu dimuat
+  try {
+    localStorage.setItem('test', 'test');
+    localStorage.removeItem('test');
+    console.log('localStorage is working');
+  } catch(e) {
+    console.log('localStorage is not available:', e);
+  }
+</script>

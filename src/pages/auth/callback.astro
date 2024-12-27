@@ -1,0 +1,23 @@
+---
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  import.meta.env.SUPABASE_URL,
+  import.meta.env.SUPABASE_ANON_KEY
+)
+
+const code = Astro.url.searchParams.get('code')
+
+if (code) {
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+  if (error) {
+    console.error('Error exchanging code for session:', error)
+    return Astro.redirect('/login?error=auth')
+  } else {
+    // Use 'data' if needed, or remove the declaration if not used
+    console.log('Session data:', data) // {{ edit_1 }}
+  }
+}
+
+return Astro.redirect('/dashboard')
+---

@@ -1,0 +1,208 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/icon.png";
+import styles from "../styles/demo.module.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+const page = "dashboard";
+import "@/styles/globals.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>| {page}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
+      type="text/javascript"
+    />
+    <link rel="icon" type="image/png" href={logo.src} sizes="32x32" />
+    <style>
+      @import "../styles/demo.module.css";
+    </style>
+  </head>
+</html>
+<body>
+  <div class={styles.grid}>
+    <svg
+      class={styles.gridSvg}
+      xmlns="http://www.w3.org/2000/svg"
+      width="982"
+      height="786"
+      viewBox="0 0 982 786"
+      fill="none"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M490 401V537H348.5V401H490ZM490 785.5V676H348.5V785.5H347.5V676H206V785.5H205V676H63.5V785.5H62.5V676H0V675H62.5V538H0V537H62.5V401H0V400H62.5V258H0V257H62.5V116H0V115H62.5V0H63.5V115L205 115V0H206V115L347.5 115V0H348.5V115H490V0H491V115L627.5 115V0H628.5V115H765V0H766V115L902.5 115V0H903.5V115H982V116H903.5V257H982V258H903.5V400H982V401H903.5V537H982V538H903.5V675H982V676H903.5V785.5H902.5V676H766V785.5H765V676H628.5V785.5H627.5V676H491V785.5H490ZM902.5 675V538H766V675H902.5ZM902.5 537V401H766V537H902.5ZM902.5 400V258H766V400H902.5ZM902.5 257V116L766 116V257H902.5ZM627.5 675H491V538H627.5V675ZM765 675H628.5V538H765V675ZM348.5 675H490V538H348.5V675ZM347.5 538V675H206V538H347.5ZM205 538V675H63.5V538H205ZM765 537V401H628.5V537H765ZM765 400V258H628.5V400H765ZM765 257V116H628.5V257H765ZM347.5 401V537H206V401H347.5ZM205 401V537H63.5V401H205ZM627.5 401V537H491V401H627.5ZM627.5 116L491 116V257H627.5V116ZM627.5 258H491V400H627.5V258ZM63.5 257V116L205 116V257H63.5ZM63.5 400V258H205V400H63.5ZM206 116V257H347.5V116L206 116ZM348.5 116V257H490V116H348.5ZM206 400V258H347.5V400H206ZM348.5 258V400H490V258H348.5Z"
+        fill="url(#paint0_radial_1_8)"></path>
+      <defs>
+        <radialGradient
+          id="paint0_radial_1_8"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(0) rotate(90) scale(785.5 982)"
+        >
+          <stop stop-color="var(--primary)"></stop>
+          <stop offset="1" stop-color="var(--primaryFg)" stop-opacity="0"
+          ></stop>
+        </radialGradient>
+      </defs>
+    </svg>
+    <div class="blur"></div>
+    <div class="content">
+      <div class="text"></div>
+      <div class="title">
+        <Image
+          src={logo}
+          alt="Roselia"
+          class={styles.logo}
+          width={100}
+          height={100}
+        />
+      </div>
+    </div>
+
+    <div class={styles.buttonContainer}>
+      <button id="approvalBtn" class={`${styles.button} ${styles.btn1}`}
+      ></button>
+      <button id="discographyBtn" class={`${styles.button} ${styles.btn2}`}
+      ></button>
+      <button id="historyBtn" class={`${styles.button} ${styles.btn3}`}
+      ></button>
+    </div>
+
+    <footer class={styles.footer}>0.1 &copy; 2024</footer>
+  </div>
+
+  <script type="text/javascript">
+    // ——————————————————————————————————————————————————
+    // TextScramble
+    // ——————————————————————————————————————————————————
+    class TextScramble {
+      el;
+      chars;
+      queue;
+      resolve;
+      frameRequest;
+      frame;
+      // update;
+
+      constructor(el) {
+        this.el = el;
+        this.chars = "!<>-_\\/[]{}—=+*^?#________";
+        this.queue = []; // Inisialisasi queue di sini
+        this.frame = 0;
+        this.frameRequest = 0; // Inisialisasi frameRequest di sini
+        this.update = this.update.bind(this);
+        this.resolve = () => {}; // Inisialisasi resolve di sini
+      }
+      setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => (this.resolve = resolve));
+        this.queue = [];
+        for (let i = 0; i < length; i++) {
+          const from = oldText[i] || "";
+          const to = newText[i] || "";
+          const start = Math.floor(Math.random() * 40);
+          const end = start + Math.floor(Math.random() * 40);
+          this.queue.push({ from, to, start, end });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+      }
+      update() {
+        let output = "";
+        let complete = 0;
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+          let { from, to, start, end, char } = this.queue[i];
+          if (this.frame >= end) {
+            complete++;
+            output += to;
+          } else if (this.frame >= start) {
+            if (!char || Math.random() < 0.28) {
+              char = this.randomChar();
+              this.queue[i].char = char;
+            }
+            output += `<span class="dud">${char}</span>`;
+          } else {
+            output += from;
+          }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+          this.resolve();
+        } else {
+          this.frameRequest = requestAnimationFrame(this.update);
+          this.frame++;
+        }
+      }
+      randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+      }
+    }
+
+    const phrases = [
+      "Roselia",
+      "Melodies of Dreams",
+      "we're going to realize",
+      "The Stage is Set, Let the Show Begin!",
+      "that there's a difference",
+      "between knowing the path",
+      "and walking the path",
+    ];
+
+    const el = document.querySelector(".text");
+    if (el instanceof HTMLElement) {
+      const fx = new TextScramble(el);
+
+      let counter = 0;
+      const next = () => {
+        fx.setText(phrases[counter]).then(() => {
+          setTimeout(next, 800);
+        });
+        counter = (counter + 1) % phrases.length;
+      };
+
+      next();
+    } else {
+      console.error("Elemen .text tidak ditemukan");
+    }
+
+    const approvalBtn = document.getElementById("approvalBtn");
+    if (approvalBtn) {
+      approvalBtn.textContent = "Approval";
+      approvalBtn.addEventListener("click", () => {
+        window.location.href = "/login";
+      });
+    }
+
+    const discographyBtn = document.getElementById("discographyBtn");
+    if (discographyBtn) {
+      discographyBtn.textContent = "Discography";
+      discographyBtn.addEventListener("click", () => {
+        window.location.href = "/discography";
+      });
+    }
+
+    const historyBtn = document.getElementById("historyBtn");
+    if (historyBtn) {
+      historyBtn.textContent = "Community";
+      historyBtn.addEventListener("click", () => {
+        window.location.href = "/community";
+      });
+    }
+  </script>
+</body>
