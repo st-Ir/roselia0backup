@@ -4,12 +4,12 @@ import Page from '../components/analytic';
 import "@/styles/globals.css";
 
 // Fetch the current user data here if needed
-const currentUser = null; // Replace with actual user fetching logic if available
+const user = null; // Replace with actual user fetching logic if available
 ---
 
 <Layout page="Login">
   <main class="w-full h-full">
-    <Page client:load currentUser={currentUser} />
+    <Page client:load user={user} />
   </main>
 </Layout>
 
