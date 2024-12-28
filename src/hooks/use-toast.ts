@@ -8,7 +8,7 @@ type ToasterToast = {
   title?: string
   description?: string
   action?: React.ReactNode
-  variant?: "default" | "destructive"
+  variant: "default" | "destructive"
 }
 
 const actionTypes = {
@@ -150,8 +150,8 @@ function toast({ ...props }: Toast) {
     toast: {
       ...props,
       id,
-      title: props.title,
-      description: props.description,
+      title: props.title || "",
+      description: props.description || "",
       variant: props.variant || "default",
     },
   })
@@ -179,7 +179,7 @@ function useToast() {
   return {
     ...state,
     toast,
-    dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
+    dismiss: (toastId: string = "") => dispatch({ type: "DISMISS_TOAST", toastId }),
   }
 }
 
