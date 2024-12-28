@@ -5,6 +5,7 @@
     "jsx": "preserve",
     "module": "esnext",
     "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types", "./frontend"],
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]

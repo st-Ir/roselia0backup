@@ -1299,7 +1299,7 @@ const Component = ({ user }) => {
     pdf.text(`Issued on ${dateStr}`, 148.5, 150, { align: 'center' });
 
     // Add certificate ID
-    const certificateId = `ROS-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    const certificateId = `ROS-${Math.random().toString(36).slice(2, 11).toUpperCase()}`;
     pdf.setFontSize(10);
     pdf.text(`Certificate ID: ${certificateId}`, 148.5, 160, { align: 'center' });
 
