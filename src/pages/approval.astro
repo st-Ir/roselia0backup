@@ -6,6 +6,7 @@ import "@/styles/globals.css";
 
 <Layout page="Login">
   <main class="w-full h-full">
-    <Page client:load user={typeof currentUser !== 'undefined' ? currentUser : null} />
+    <Page client:load fetchUserOnClient={true} />
+    window.ENV = window.ENV || {};
   </main>
 </Layout>
