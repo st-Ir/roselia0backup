@@ -33,7 +33,7 @@ import AlbumPerformanceChart from "./charts";
 import TabelDiscography from "./tabels";
 import Member from "./character";
 
-const API_URL = "https://bookish-system-gp9xr44v9572p-2005.app.github.dev/api";
+const API_URL = "http://localhost:2005/api";
 
 export default function Component() {
   const [mediaList, setMediaList] = useState([]);
