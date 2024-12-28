@@ -8,4 +8,10 @@ declare module "*.astro" {
       user: any;
     };
   }
+
+declare global {
+    interface Window {
+      ENV: Record<string, any>;
+    }
+  }
   

@@ -6,6 +6,6 @@ import "@/styles/globals.css";
 
 <Layout page="Login">
   <main class="w-full h-full">
-    <Page client:load user={currentUser || null} />
+    <Page client:load user={typeof currentUser !== 'undefined' ? currentUser : null} />
   </main>
 </Layout>

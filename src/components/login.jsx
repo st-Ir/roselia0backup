@@ -4,7 +4,8 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Github, Loader2, LogOut, AlertCircle, Home, Settings, FileText, User } from 'lucide-react'
+import { Loader2, LogOut, AlertCircle, Home, Settings, FileText, User } from 'lucide-react'
+import { FaGithub } from 'react-icons/fa';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import AnalyticComponent from './analytic'
@@ -364,7 +365,7 @@ export default function LoginAndProfilePage() {
             {provider && (
               <div className="flex items-center">
                 {provider === 'github' ? (
-                  <Github className="w-4 h-4 text-gray-400 mr-2" />
+                  <FaGithub className="w-4 h-4 text-gray-400 mr-2" />
                 ) : provider === 'google' ? (
                   <svg className="w-4 h-4 text-gray-400 mr-2" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
@@ -491,7 +492,7 @@ export default function LoginAndProfilePage() {
             </div>
           </div>
           <Button variant="outline" className="w-full" onClick={handleGithubLogin} disabled={loading}>
-            {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Github className="mr-2 h-4 w-4" />}
+            {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FaGithub className="mr-2 h-4 w-4" />}
             Sign in with GitHub
           </Button>
         </CardContent>
