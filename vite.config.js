@@ -13,4 +13,11 @@ export default defineConfig({
          '@': path.resolve(__dirname, './src'),
    },
  },
+ vite: {
+  build: {
+    rollupOptions: {
+      external: ['react-icons'],
+    },
+  },
+},
 })
