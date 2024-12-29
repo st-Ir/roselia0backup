@@ -118,7 +118,7 @@ const examQuestions = [
   {
     id: 4,
     type: 'order',
-    question: "Urutkan album studio Roselia dari yang paling lama dirilis hingga yang terbaru:",
+    question: "album Roselia dari yang paling lama dirilis hingga yang terbaru:",
     options: [
       "Anfang",
       "Era",
