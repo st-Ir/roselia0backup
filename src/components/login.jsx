@@ -5,7 +5,7 @@ import { createClient } from '@supabase/supabase-js'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Loader2, LogOut, AlertCircle, Home, Settings, FileText, User } from 'lucide-react'
-import { FaGithub } from "react-icons/fa"
+import { FaGithub } from "react-icons/fa6"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import AnalyticComponent from './analytic'
