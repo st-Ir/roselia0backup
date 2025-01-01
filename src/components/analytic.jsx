@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import jsPDF from 'jspdf'
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
