@@ -1,120 +1,53 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect, useCallback } from 'react'
-import { createClient } from '@supabase/supabase-js'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Loader2, LogOut, AlertCircle, Home, Settings, FileText, User } from 'lucide-react'
+import React, { useState, useEffect, useCallback } from 'react';
+import { createClient } from '@supabase/supabase-js';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loader2, LogOut, AlertCircle, Home, Settings, FileText, User } from 'lucide-react';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import AnalyticComponent from './analytic'
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AnalyticComponent from './analytic';
 
-const supabaseUrl = "https://iwgeduwlmpikexvczshr.supabase.co"
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3Z2VkdXdsbXBpa2V4dmN6c2hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjExNDQ3MDcsImV4cCI6MjAzNjcyMDcwN30.Jmj9pwJwjbCb_3aS56jgniz2exyA0cfYZojb0TQgySA"
+const supabaseUrl = "https://iwgeduwlmpikexvczshr.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3Z2VkdXdsbXBpa2V4dmN6c2hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjExNDQ3MDcsImV4cCI6MjAzNjcyMDcwN30.Jmj9pwJwjbCb_3aS56jgniz2exyA0cfYZojb0TQgySA";
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function LoginAndProfilePage() {
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState(null)
-  const [user, setUser] = useState(null)
-  const [isError, setIsError] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedUser = localStorage.getItem('user')
-      if (storedUser) {
-        setUser(JSON.parse(storedUser))
-      }
-    }
-  }, [])
-
-  const updateUserMetadata = async (user) => {
-    if (!user) return;
-
-    try {
-      const provider = user.app_metadata?.provider;
-
-      const identity = user.identities?.find(id => id.provider === provider);
-
-      if (!identity) {
-        return;
-      }
-
-      let userData = {
-        provider: provider
-      };
-
-      switch (provider) {
-        case 'google':
-          userData = {
-            ...userData,
-            avatar_url: identity.identity_data.picture,
-            full_name: identity.identity_data.name,
-            email: identity.identity_data.email,
-            provider_id: identity.id
-          };
-          break;
-        case 'github':
-          userData = {
-            ...userData,
-            avatar_url: identity.identity_data.avatar_url,
-            full_name: identity.identity_data.name || identity.identity_data.login,
-            email: identity.identity_data.email,
-            provider_id: identity.id
-          };
-          break;
-      }
-
-      const { data, error } = await supabase.auth.updateUser({
-        data: userData
-      });
-
-      if (error) throw error;
-
-      setUser(data.user);
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('user', JSON.stringify(data.user));
-      }
-    } catch (error) {
-      // Removed console logs
-    }
-  };
-
-  const checkAndSetUser = async () => {
-    try {
-      const { data: { session }, error } = await supabase.auth.getSession();
-
-      if (error) throw error;
-
-      if (session) {
-        setUser(session.user);
-        await updateUserMetadata(session.user);
-        if (typeof window !== 'undefined') {
+    const checkSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          setUser(session.user);
           localStorage.setItem('user', JSON.stringify(session.user));
-        }
-      } else {
-        setUser(null);
-        if (typeof window !== 'undefined') {
+        } else {
+          setUser(null);
           localStorage.removeItem('user');
         }
+      } catch (error) {
+        setIsError(true);
+        setMessage('An error occurred while checking the session.');
       }
-    } catch (error) {
-      setUser(null);
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('user');
-      }
-    }
-  };
+    };
+
+    checkSession();
+  }, []);
 
   const handleGoogleLogin = async () => {
-    setLoading(true)
-    setMessage(null)
-    setIsError(false)
-    
+    setLoading(true);
+    setMessage(null);
+    setIsError(false);
+
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
@@ -125,164 +58,62 @@ export default function LoginAndProfilePage() {
             scope: 'openid email profile'
           }
         }
-      })
+      });
 
       if (error) {
-        setMessage(error.message || 'An error occurred during Google login. Please try again.')
-        setIsError(true)
-      } else {
-        // Removed console logs
+        setMessage(error.message || 'An error occurred during Google login.');
+        setIsError(true);
       }
     } catch (error) {
-      setMessage('An unexpected error occurred during Google login. Please try again.')
-      setIsError(true)
+      setMessage('An unexpected error occurred during Google login.');
+      setIsError(true);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false)
-  }
+  };
 
   const handleGithubLogin = async () => {
-    setLoading(true)
-    setMessage(null)
-    setIsError(false)
-    
+    setLoading(true);
+    setMessage(null);
+    setIsError(false);
+
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: 'github',
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
           scopes: 'read:user user:email',
         }
-      })
+      });
 
       if (error) {
-        setMessage(error.message || 'An error occurred during GitHub login. Please try again.')
-        setIsError(true)
-      } else {
-        // Removed console logs
+        setMessage(error.message || 'An error occurred during GitHub login.');
+        setIsError(true);
       }
     } catch (error) {
-      setMessage('An unexpected error occurred during GitHub login. Please try again.')
-      setIsError(true)
+      setMessage('An unexpected error occurred during GitHub login.');
+      setIsError(true);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false)
-  }
+  };
 
   const handleLogout = useCallback(async () => {
-    setLoading(true)
-    // Removed console logs
-
+    setLoading(true);
     try {
+      await supabase.auth.signOut();
+      setUser(null);
       if (typeof window !== 'undefined') {
-        localStorage.clear()
-      }
-      setUser(null)
-      setMessage(null)
-      setIsError(false)
-      // Removed console logs
-
-      const { error } = await supabase.auth.signOut()
-      if (error) throw error
-      
-      // Removed console logs
-
-      if (typeof window !== 'undefined') {
-        window.location.href = '/login'
+        localStorage.removeItem('user');
+        window.location.href = '/login';
       }
     } catch (error) {
-      setMessage('Terjadi kesalahan saat logout. Silakan coba lagi.')
-      setIsError(true)
-      setLoading(false)
+      setMessage('An error occurred during logout. Please try again.');
+      setIsError(true);
+    } finally {
+      setLoading(false);
     }
-  }, [])
-
-  const clearSession = useCallback(async () => {
-    try {
-      const { error } = await supabase.auth.admin.deleteUser(user.id)
-      if (error) throw error
-      // Removed console logs
-    } catch (error) {
-      // Removed console logs
-    }
-  }, [user])
-
-  const checkSession = useCallback(async () => {
-    try {
-      const { data: { session }, error } = await supabase.auth.getSession()
-      if (error) throw error
-      
-      if (!session) {
-        setUser(null)
-        if (typeof window !== 'undefined') {
-          localStorage.removeItem('user')
-          if (window.location.pathname !== '/login') {
-            window.location.href = '/login'
-          }
-        }
-      } else {
-        if (!user || session.user.id !== user.id) {
-          setUser(session.user)
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('user', JSON.stringify(session.user))
-          }
-          await updateUserMetadata(session.user)
-        }
-      }
-    } catch (error) {
-      await handleLogout()
-    }
-  }, [user, handleLogout, updateUserMetadata])
-
-  useEffect(() => {
-    checkSession()
-
-    const handleStorageChange = (e) => {
-      if (e.key === 'supabase.auth.token' && e.newValue === null) {
-        setUser(null)
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login'
-        }
-      }
-    }
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('storage', handleStorageChange)
-    }
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'SIGNED_IN') {
-        setUser(session.user)
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('user', JSON.stringify(session.user))
-        }
-        await updateUserMetadata(session.user)
-      } else if (event === 'SIGNED_OUT') {
-        setUser(null)
-        if (typeof window !== 'undefined') {
-          localStorage.removeItem('user')
-          window.location.href = '/login'
-        }
-      }
-    })
-
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('storage', handleStorageChange)
-      }
-      if (authListener && authListener.subscription) {
-        authListener.subscription.unsubscribe()
-      }
-    }
-  }, [checkSession])
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      checkSession()
-    }, 30000) // Check every 30 seconds
-
-    return () => clearInterval(intervalId)
-  }, [checkSession])
+  }, []);
 
   const Sidebar = () => (
     <div className="w-16 border-0 bg-muted/30 flex flex-col items-center justify-center py-8 gap-6">
@@ -310,27 +141,20 @@ export default function LoginAndProfilePage() {
   )
 
   const UserProfile = () => {
-    const provider = user.user_metadata?.provider;
-    const email = user.email;
-    const fullName = user.user_metadata?.full_name;
-    const userId = user.id;
-    
-    const identity = user.identities?.find(id => 
-      id.provider === provider && id.id === userId
-    );
-
+    const identity = user?.identities?.[0];
+    const provider = identity?.provider;
+    const email = user?.email;
+    const fullName = user?.user_metadata?.full_name;
+    const userId = user?.id;
     let avatarUrl = null;
-    let providerName = null;
 
     if (provider === 'google') {
-      avatarUrl = user.user_metadata?.avatar_url;
-      providerName = 'Google';
+      avatarUrl = user?.user_metadata?.avatar_url;
     } else if (provider === 'github') {
-      avatarUrl = user.user_metadata?.avatar_url;
-      providerName = 'GitHub';
+      avatarUrl = user?.user_metadata?.avatar_url;
     }
 
-    const displayName = fullName || email.split('@')[0] || 'Pengguna';
+    const displayName = fullName || email?.split('@')[0] || 'User';
 
     return (
       <Card className="w-full border-0 max-w-md bg-white rounded-lg overflow-hidden">
@@ -462,7 +286,7 @@ export default function LoginAndProfilePage() {
           <UserProfile />
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -494,7 +318,7 @@ export default function LoginAndProfilePage() {
             </div>
           </div>
           <Button variant="outline" className="w-full" onClick={handleGithubLogin} disabled={loading}>
-            {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FaGithub className="mr-2 h-4 w-4" />}
+            {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GithubIcon className="mr-2 h-4 w-4" />}
             Sign in with GitHub
           </Button>
         </CardContent>
