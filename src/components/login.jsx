@@ -5,10 +5,9 @@ import { createClient } from '@supabase/supabase-js'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Loader2, LogOut, AlertCircle, Home, Settings, FileText, User } from 'lucide-react'
-import GitHubIcon from '@mui/icons-material/GitHub';
+import { FaGithub } from "react-icons/fa";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import AnalyticComponent from './analytic'
 
 const supabaseUrl = "https://iwgeduwlmpikexvczshr.supabase.co"
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3Z2VkdXdsbXBpa2V4dmN6c2hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjExNDQ3MDcsImV4cCI6MjAzNjcyMDcwN30.Jmj9pwJwjbCb_3aS56jgniz2exyA0cfYZojb0TQgySA"
