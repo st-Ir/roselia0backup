@@ -8,9 +8,12 @@ export default defineConfig({
     'import.meta.env.SUPABASE_ANON_KEY': JSON.stringify(process.env.SUPABASE_ANON_KEY),
   },
   plugins: [react()],
+  optimizeDeps: {
+    include: ["react-icons/fa"],
+  },
      resolve: {
        alias: {
-         '@': path.resolve(__dirname, './src'),
+         '@': path.resolve(__dirname, './src'), "react-icons/fa": "node_modules/react-icons/fa/index.js",
    },
    build: {
     rollupOptions: {
