@@ -1,6 +1,5 @@
 import * as React from "react"
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
-import { DotsHorizontalIcon } from '@heroicons/react/24/solid';
+import { ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { Slot } from "@radix-ui/react-slot"
 
 const Breadcrumb = React.forwardRef<
