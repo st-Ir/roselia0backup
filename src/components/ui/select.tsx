@@ -4,7 +4,7 @@ import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
-} from "@radix-ui/react-icons"
+} from '@heroicons/react/24/solid';
 import * as SelectPrimitive from "@radix-ui/react-select"
 
 const Select = SelectPrimitive.Root
