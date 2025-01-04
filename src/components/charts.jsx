@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-const API_URL = import.meta.env.PUBLIC_API_URL || "https://roselia0backup.vercel.app/api";
+const API_URL = "http://localhost:2005/api";
 const ALBUMS_PER_PAGE = 10;
 
 export default function MinimizableAlbumPerformanceChart() {

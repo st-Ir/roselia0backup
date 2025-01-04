@@ -33,7 +33,8 @@ import AlbumPerformanceChart from "./charts";
 import TabelDiscography from "./tabels";
 import Member from "./character";
 
-const API_URL = import.meta.env.PUBLIC_API_URL || "https://roselia0backup.vercel.app/api";
+const API_URL = "http://localhost:2005/api";
+
 
 export default function Component() {
   const [mediaList, setMediaList] = useState([]);
