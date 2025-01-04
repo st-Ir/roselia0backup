@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const { createClient } = require("@supabase/supabase-js");
 const cors = require("cors");
@@ -8,8 +9,8 @@ app.use(express.json());
 
 const PORT = 2005;
 
-const SUPABASE_URL = "https://iwgeduwlmpikexvczshr.supabase.co";
-const SUPABASE_SERVICE_ROLE = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3Z2VkdXdsbXBpa2V4dmN6c2hyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMTE0NDcwNywiZXhwIjoyMDM2NzIwNzA3fQ.m1eDGOsTBvbwQMxGC3g_EdR1BzNh8gHN-mnu1D6dmRw";
+const SUPABASE_URL = import.meta.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE = import.meta.env.SUPABASE_SERVICE_ROLE;
 
 const db = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE);
 
@@ -153,3 +154,5 @@ app.post("/exam/submit", verifyToken, async (req, res) => {
 app.listen(PORT, () => {
   console.log("Server running at port", PORT);
 });
+
+module.exports = app;

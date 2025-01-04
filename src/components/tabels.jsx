@@ -45,7 +45,7 @@ import {
 } from "@/components/ui/carousel";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-const API_URL = "http://localhost:2005/api";
+const API_URL = import.meta.env.PUBLIC_API_URL || "https://roselia0backup.vercel.app/api";
 
 const COLUMNS = [
   { key: "covers", label: "Covers", sortable: false },
