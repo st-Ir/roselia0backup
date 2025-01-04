@@ -7,8 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 2005;
-
 const SUPABASE_URL = import.meta.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE = import.meta.env.SUPABASE_SERVICE_ROLE;
 
@@ -85,7 +83,6 @@ app.put("/api/profile", verifyToken, async (req, res) => {
   }
 });
 
-// Existing routes
 app.get("/api", async (req, res) => {
   try {
     const { data, error } = await db.from("songs").select();
@@ -151,8 +148,5 @@ app.post("/exam/submit", verifyToken, async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log("Server running at port", PORT);
-});
-
+// Ekspor aplikasi Express sebagai serverless function
 module.exports = app;
