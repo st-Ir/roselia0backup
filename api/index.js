@@ -145,7 +145,7 @@ app.post("/exam/submit", verifyToken, async (req, res) => {
     if (error) throw error;
     res.json({ success: true, data });
   } catch (error) {
-    console.error("Error saving exam result:", error);
+    console.error("Error saving result:", error);
     res.status(500).json({ error: error.message });
   }
 });
