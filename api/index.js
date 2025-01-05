@@ -7,8 +7,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const SUPABASE_URL = import.meta.env.SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE = import.meta.env.SUPABASE_SERVICE_ROLE;
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE;
 
 const db = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE);
 
