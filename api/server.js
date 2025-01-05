@@ -116,11 +116,13 @@ app.post("/api/songs", verifyToken, async (req, res) => {
 
 app.get("/api/album-performance", async (req, res) => {
   try {
+    console.log("Fetching album performance data...");
     const { data, error } = await db.from("album_performance").select();
     if (error) {
       console.error("Database error:", error);
       return res.status(500).json({ error: "Database error" });
     }
+    console.log("Data fetched successfully:", data);
     res.json(data);
   } catch (error) {
     console.error("Error fetching album performance data:", error);
