@@ -122,5 +122,4 @@ app.post("/exam/submit", verifyToken, async (req, res) => {
   }
 });
 
-// Ekspor aplikasi Express sebagai serverless function
 module.exports = app;
