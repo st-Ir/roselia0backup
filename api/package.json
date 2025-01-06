@@ -50,6 +50,7 @@
     "destroy": "^1.2.0",
     "detective": "^4.7.1",
     "dom-helpers": "^5.2.1",
+    "dotenv": "^16.4.7",
     "ee-first": "^1.1.1",
     "encodeurl": "^2.0.0",
     "envify": "^3.4.1",
