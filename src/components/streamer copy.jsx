@@ -33,7 +33,7 @@ import AlbumPerformanceChart from "./charts";
 import TabelDiscography from "./tabels";
 import Member from "./character";
 
-const API_URL = "http://localhost:2005/api";
+const API_URL = import.meta.env.PUBLIC_URL || process.env.PUBLIC_URL;
 
 
 export default function Component() {
@@ -70,7 +70,7 @@ export default function Component() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_URL}`);
+      const response = await axios.get(`${API_URL}/songs`);
       setMediaList(response.data);
     } catch (error) {
       console.error("Error fetching media list:", error);

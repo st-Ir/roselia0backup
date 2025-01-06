@@ -14,7 +14,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { AlertCircle, ChevronLeft, ChevronRight, Clock, CheckCircle, XCircle, Download, X, Play, Pause, ChevronUp, ChevronDown, Sun, Moon, ZoomIn, ZoomOut, User, Info, FileText, Circle, ListChecks, ArrowRight } from 'lucide-react'
 
 // API configuration
-const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:2005';
+
 const headers = {
   'Content-Type': 'application/json'
 }

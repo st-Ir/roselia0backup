@@ -55,35 +55,7 @@ app.post("/api/auth/logout", verifyToken, async (req, res) => {
   }
 });
 
-app.get("/api/profile", verifyToken, async (req, res) => {
-  try {
-    const { data, error } = await db.from('profiles').select().eq('id', req.user.id).single();
-    if (error) throw error;
-    res.json(data);
-  } catch (error) {
-    console.error("Error fetching profile:", error);
-    res.status(500).json({ error: "An error occurred while fetching the profile" });
-  }
-});
-
-app.put("/api/profile", verifyToken, async (req, res) => {
-  const { name, avatar_url } = req.body;
-  try {
-    const { data, error } = await db.from('profiles').upsert({
-      id: req.user.id,
-      name,
-      avatar_url,
-      updated_at: new Date(),
-    });
-    if (error) throw error;
-    res.json(data);
-  } catch (error) {
-    console.error("Error updating profile:", error);
-    res.status(500).json({ error: "An error occurred while updating the profile" });
-  }
-});
-
-app.get("/api", async (req, res) => {
+app.get("/songs", async (req, res) => {
   try {
     const { data, error } = await db.from("songs").select();
     if (error) {
@@ -114,7 +86,7 @@ app.post("/api/songs", verifyToken, async (req, res) => {
   }
 });
 
-app.get("/api/album-performance", async (req, res) => {
+app.get("/album-performance", async (req, res) => {
   try {
     console.log("Fetching album performance data...");
     const { data, error } = await db.from("album_performance").select();
