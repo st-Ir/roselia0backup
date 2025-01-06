@@ -55,7 +55,7 @@ app.post("/api/auth/logout", verifyToken, async (req, res) => {
   }
 });
 
-app.get("/songs", async (req, res) => {
+app.get("/api", async (req, res) => {
   try {
     const { data, error } = await db.from("songs").select();
     if (error) {
@@ -86,7 +86,7 @@ app.post("/api/songs", verifyToken, async (req, res) => {
   }
 });
 
-app.get("/album-performance", async (req, res) => {
+app.get("/api/album-performance", async (req, res) => {
   try {
     console.log("Fetching album performance data...");
     const { data, error } = await db.from("album_performance").select();
