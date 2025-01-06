@@ -4,9 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev -- --host",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
+    "build": "astro build && vercel dev", 
+    "start": "astro preview",
     "format": "prettier --write . --plugin=prettier-plugin-astro",
     "astro": "astro"
   },
