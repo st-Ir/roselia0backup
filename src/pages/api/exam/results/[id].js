@@ -1,10 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE;
 
-const supabaseUrl = 'https://qfmwkqxjbqjpzpjqbdcb.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmbXdrcXhqYnFqcHpwanFiZGNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI5NjQzMDYsImV4cCI6MjAxODU0MDMwNn0.Pu_jFpYwPXDlQtKOjLBVOYgwqO6Yw5_YLGJOLLGfLxA'
-
-const supabase = createClient(supabaseUrl, supabaseKey)
-
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE);
 export const GET = async ({ params }) => {
   try {
     const { id } = params
