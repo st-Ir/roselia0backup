@@ -7,10 +7,10 @@
   --primary: hsl(0, 0%, 7%);
   --primaryBg: hsla(253, 96%, 56%, 0.2);
   --primaryHi: hsla(155, 100%, 75%, 0.25);
-  --primaryFg: hsl(246, 100%, 85%);
+  --primaryFg: hsl(0, 0%, 7%);
   --secondary: hsl(156, 51%, 14%);
-  --secondaryFg: hsl(249, 51%, 75%);
-  --secondaryBg: hsl(250, 51%, 90%);
+  --secondaryFg: hsl(0, 0%, 9%);
+  --secondaryBg: hsl(0, 0%, 18%);
   --neutral: hsla(0, 0%, 30%, 0.1);
   --fontFamily: "Manrope", sans-serif;
 }
