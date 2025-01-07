@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const { createClient } = require("@supabase/supabase-js");
 const cors = require("cors");
@@ -12,8 +12,9 @@ const SUPABASE_SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE;
 
 const db = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE);
 
+// Middleware untuk verifikasi token
 const verifyToken = async (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
+  const token = req.headers.authorization?.split(" ")[1];
   if (!token) {
     return res.status(401).json({ error: "No token provided" });
   }
@@ -29,13 +30,11 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
+// Endpoint Login
 app.post("/api/auth/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    const { data, error } = await db.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { data, error } = await db.auth.signInWithPassword({ email, password });
     if (error) throw error;
     res.json(data);
   } catch (error) {
@@ -44,6 +43,7 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
+// Endpoint Logout
 app.post("/api/auth/logout", verifyToken, async (req, res) => {
   try {
     const { error } = await db.auth.signOut();
@@ -55,13 +55,11 @@ app.post("/api/auth/logout", verifyToken, async (req, res) => {
   }
 });
 
+// Mendapatkan semua lagu
 app.get("/api", async (req, res) => {
   try {
     const { data, error } = await db.from("songs").select();
-    if (error) {
-      console.error("Database error:", error);
-      return res.status(500).json({ error: "Database error" });
-    }
+    if (error) throw error;
     res.json(data);
   } catch (error) {
     console.error("Error fetching songs:", error);
@@ -69,9 +67,9 @@ app.get("/api", async (req, res) => {
   }
 });
 
+// Menambahkan lagu
 app.post("/api/songs", verifyToken, async (req, res) => {
   const { title, artist, src, cover } = req.body;
-
   if (!title || !artist || !src || !cover) {
     return res.status(400).json({ error: "All fields are required" });
   }
@@ -86,34 +84,25 @@ app.post("/api/songs", verifyToken, async (req, res) => {
   }
 });
 
+// Data album performance
 app.get("/api/album-performance", async (req, res) => {
   try {
-    console.log("Fetching album performance data...");
     const { data, error } = await db.from("album_performance").select();
-    if (error) {
-      console.error("Database error:", error);
-      return res.status(500).json({ error: "Database error" });
-    }
-    console.log("Data fetched successfully:", data);
+    if (error) throw error;
     res.json(data);
   } catch (error) {
-    console.error("Error fetching album performance data:", error);
+    console.error("Error fetching album performance:", error);
     res.status(500).json({ error: "An error occurred while fetching album performance data" });
   }
 });
 
+// Mengirim hasil ujian
 app.post("/exam/submit", verifyToken, async (req, res) => {
   try {
     const { examData } = req.body;
     const { data, error } = await db
-      .from('exam_results')
-      .insert([
-        { 
-          user_id: req.user.id,
-          ...examData
-        }
-      ]);
-    
+      .from("exam_results")
+      .insert([{ user_id: req.user.id, ...examData }]);
     if (error) throw error;
     res.json({ success: true, data });
   } catch (error) {
