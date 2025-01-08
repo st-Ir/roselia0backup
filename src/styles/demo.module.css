@@ -6,9 +6,9 @@
   --background: hsl(0, 0%, 7%);
   --primary: hsl(0, 0%, 7%);
   --primaryBg: hsla(253, 96%, 56%, 0.2);
-  --primaryHi: hsla(155, 100%, 75%, 0.25);
+  --primaryHi: hsla(0, 0%, 0%, 0.25);
   --primaryFg: hsl(246, 100%, 85%);
-  --secondary: hsl(156, 51%, 14%);
+  --secondary: hsl(0, 0%, 0%);
   --secondaryFg: hsl(249, 51%, 75%);
   --secondaryBg: hsl(250, 51%, 90%);
   --neutral: hsla(0, 0%, 30%, 0.1);
