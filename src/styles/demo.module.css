@@ -67,7 +67,7 @@
   border: none;
   border-radius: 10px;
   padding: 10px 20px;
-  background-color: var(--primary);
+  background-color: transparent;
   color: var(--text);
   font-size: 1rem;
   font-weight: bold;
@@ -84,8 +84,7 @@
 }
 
 .button:hover {
-  background-color: var(--primaryFg);
-  color: var(--primary);
+  color: var(--primaryFg);
 }
 
 .grid {
@@ -211,8 +210,8 @@
 }
 
 .footer {
-  position: absolute;
-  bottom: 10px;
+  position: relative;
+  margin-top: 1rem;
   width: 100%;
   text-align: center;
   color: var(--textDim);
