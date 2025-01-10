@@ -15,6 +15,21 @@
   --fontFamily: "Manrope", sans-serif;
 }
 
+:global(.dark) {
+  --text: hsl(0, 0%, 100%);
+  --textDim: hsl(0, 0%, 60%);
+  --background: hsl(0, 0%, 0%);
+  --primary: hsl(0, 0%, 10%);
+  --primaryBg: hsla(253, 96%, 56%, 0.2);
+  --primaryHi: hsla(0, 0%, 0%, 0.25);
+  --primaryFg: hsl(246, 100%, 85%);
+  --secondary: hsl(0, 0%, 20%);
+  --secondaryFg: hsl(249, 51%, 75%);
+  --secondaryBg: hsl(250, 51%, 90%);
+  --neutral: hsla(0, 0%, 30%, 0.1);
+  --fontFamily: "Manrope", sans-serif;
+}
+
 :global(*) {
   margin: 0;
   padding: 0;
