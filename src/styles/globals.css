@@ -5,7 +5,8 @@
 @layer base {
   :root {
     --background: hsl(0, 0%, 100%);
-    --foreground: hsl(0, 0%, 40%);
+    --foreground: hsl(0, 0%, 42%);
+    --textprimary: hsl(0, 0%, 0%);
     --card: hsl(0, 0%, 100%);
     --card-foreground: hsl(224, 71.4%, 4.1%);
     --popover: hsl(0, 0%, 100%);
@@ -33,7 +34,8 @@
 
   .dark {
     --background: hsl(0, 0%, 0%);
-    --foreground: hsl(210, 20%, 98%);
+    --foreground: hsl(0, 0%, 42%);
+    --textprimary: hsl(0, 0%, 100%);
     --card: hsl(224, 71.4%, 4.1%);
     --card-foreground: hsl(210, 20%, 98%);
     --popover: hsl(224, 71.4%, 4.1%);
