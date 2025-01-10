@@ -111,15 +111,15 @@ export default function MinimizableAlbumPerformanceChart() {
         config={{
           plays: {
             label: "Plays",
-            color: "hsl(var(--chart-1))",
+            color: "blue",
           },
           likes: {
             label: "Likes",
-            color: "hsl(var(--chart-2))",
+            color: "red",
           },
           shares: {
             label: "Shares",
-            color: "hsl(var(--chart-3))",
+            color: "purple",
           },
         }}
       >
@@ -161,7 +161,7 @@ export default function MinimizableAlbumPerformanceChart() {
             yAxisId="left"
             type="monotone"
             dataKey="plays"
-            stroke="var(--color-plays)"
+            stroke="blue"
             strokeWidth={2}
             dot={true}
           />
@@ -169,7 +169,7 @@ export default function MinimizableAlbumPerformanceChart() {
             yAxisId="right"
             type="monotone"
             dataKey="likes"
-            stroke="var(--color-likes)"
+            stroke="red"
             strokeWidth={2}
             dot={true}
           />
@@ -177,7 +177,7 @@ export default function MinimizableAlbumPerformanceChart() {
             yAxisId="right"
             type="monotone"
             dataKey="shares"
-            stroke="var(--color-shares)"
+            stroke="purple"
             strokeWidth={2}
             dot={true}
           />
