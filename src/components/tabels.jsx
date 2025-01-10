@@ -283,39 +283,39 @@ export default function DiscographyTable() {
         open={!!selectedAlbum}
         onOpenChange={() => setSelectedAlbum(null)}
       >
-        <DialogContent className="sm:max-w-[400px]">
+        <DialogContent className="sm:max-w-[400px] border border-gray-300 text-gray-300">
           <DialogHeader className="flex flex-row items-center justify-between">
-            <DialogTitle className="text-2xl">
+            <DialogTitle className="text-2xl text-gray-300">
               {selectedAlbum.title}
             </DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             {renderCovers(selectedAlbum.covers)}
             <div className="grid grid-cols-2 items-center gap-4">
-              <span className="text-sm font-medium">id:</span>
-              <span className="text-sm">{selectedAlbum.id}</span>
-              <span className="text-sm font-medium">Release Date:</span>
-              <span className="text-sm">{selectedAlbum.release_date}</span>
-              <span className="text-sm font-medium">Tracks:</span>
-              <span className="text-sm">{selectedAlbum.track_count}</span>
-              <span className="text-sm font-medium">type:</span>
-              <span className="text-sm">{selectedAlbum.type}</span>
+              <span className="text-sm font-medium text-gray-300">id:</span>
+              <span className="text-sm text-gray-300">{selectedAlbum.id}</span>
+              <span className="text-sm font-medium text-gray-300">Release Date:</span>
+              <span className="text-sm text-gray-300">{selectedAlbum.release_date}</span>
+              <span className="text-sm font-medium text-gray-300">Tracks:</span>
+              <span className="text-sm text-gray-300">{selectedAlbum.track_count}</span>
+              <span className="text-sm font-medium text-gray-300">type:</span>
+              <span className="text-sm text-gray-300">{selectedAlbum.type}</span>
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <Music className="h-4 w-4" />
-                <span className="text-sm font-medium">Track List:</span>
+                <Music className="h-4 w-4 text-gray-300" />
+                <span className="text-sm font-medium text-gray-300">Track List:</span>
               </div>
-              <ScrollArea className="h-[200px] w-full rounded-md border p-4">
-                <pre className="text-sm whitespace-pre-wrap">
+              <ScrollArea className="h-[200px] w-full rounded-md border border-gray-300 p-4 text-gray-300">
+                <pre className="text-sm whitespace-pre-wrap text-gray-300">
                   {selectedAlbum.tracks}
                 </pre>
               </ScrollArea>
             </div>
             <div className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              <span className="text-sm font-medium">Additional Files:</span>
-              <Button variant="outline" size="sm">
+              <FileText className="h-4 w-4 text-gray-300" />
+              <span className="text-sm font-medium text-gray-300">Additional Files:</span>
+              <Button variant="outline" size="sm" className="text-gray-300 border-gray-300">
                 Download Lyrics
               </Button>
             </div>
