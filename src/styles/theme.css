@@ -1,14 +1,14 @@
 :root {
-  --background-color: #ffffff;
-  --text-color: #000000;
+  --background-color: var(--background);
+  --text-color: var(--foreground);
 }
 
 [data-theme='dark'] {
-  --background-color: #1a1a1a;
-  --text-color: #ffffff;
+  --background-color: var(--background);
+  --text-color: var(--foreground);
 }
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
-} 
+}
